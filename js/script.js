@@ -1,5 +1,3 @@
-"use strict";
-
 function titleClickHandler(event) {
   event.preventDefault();
   console.log("Link was clicked!");
@@ -27,18 +25,43 @@ function titleClickHandler(event) {
 }
 
 const links = document.querySelectorAll(".titles a");
+console.log(links);
 
 for (let link of links) {
   link.addEventListener("click", titleClickHandler);
 }
 
-// Kod nie działa.
-// <<<<<<<<<HEAD psuje wykonywanie kodu.
-// Do tego popraw nazwy funkcji (np. funkcja generateTitleLinks nie generuje linków), usuń komentarze.
-// const przerzuć na górę. Nie trzymaj ich w środku dokumentu i zadbaj o spójność.
-//Czasami używasz ich, a czasami po prostu w querySelector dodajesz string. Dodaj do wszystkiego const. W ten sposób unikniesz błędów związanych z literówkami.
+const optArticleSelector = ".post",
+  optTitleSelector = ".post-title",
+  optTitleListSelector = ".titles";
+let html = "";
 
-// Kod nie działa, prawdopodobnie dlatego, że po wysłaniu linku do zadania
-//kontynuowałem pracę z kodem i oczywiście go zmieniłem. Może uczynić każde nowe zadanie osobnym GIF-em
+function generateTitleLinks() {
+  /* remove contents of titleList */
+  const titleList = document.querySelector(optTitleListSelector);
+  console.log(titleList);
+  titleList.innerHTML = "";
+  /* for each article */
+  const articles = document.querySelectorAll(optArticleSelector);
+  for (let article of articles) {
+    /* get the article id */
+    const articleId = article.getAttribute("id");
+    /* find the title element */
+    /* get the title from the title element */
+    const titleElement = article.querySelector(optTitleSelector).innerHTML;
+    /* create HTML of the link */
+    const linkHTML =
+      '<li><a href="#' +
+      articleId +
+      '"><span>' +
+      titleElement +
+      "</span></a></li>";
+    console.log(linkHTML);
 
-// wykonałam zadanie zgodnie z zaleceniem w module, mam na myśli rozmieszczenie const i komentarzy.
+    /* insert link into titleList */
+    html = html + linkHTML;
+  }
+  titleList.innerHTML = html;
+}
+
+generateTitleLinks();
